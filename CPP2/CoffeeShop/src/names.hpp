@@ -1,0 +1,1 @@
+enum Name { Coffee, Tea, Sandwich, Burger };
