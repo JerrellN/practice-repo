@@ -1,2 +1,4 @@
 #include "../src/currency.hpp"
-#include <gtest/gtest.h>
+#include <../gtest/gtest.h>
+
+
