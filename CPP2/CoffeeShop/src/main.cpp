@@ -11,7 +11,7 @@ using std::endl;
 #include "products.hpp"
 #include "names.hpp"
 #include "currency.hpp"
-
+#include "shoppingcart.hpp"
 
 
 
@@ -31,95 +31,6 @@ string getInput()
 		getInput();
 	}
 	return input;
-}
-
-Product addToCart(string input, vector<Product> theProducts)
-{
-	Product product = Product(Coffee);
-	if (input == "coffee")
-	{
-		product = Product(Coffee);
-	}
-	else if (input == "tea")
-	{
-		product = Product(Tea);
-	}
-	else if (input == "sandwich")
-	{
-		product = Product(Sandwich);
-	}
-	else 
-	{
-		product = Product(Burger);
-	}
-	return product;
-	
-}
-
-double AddTotal(vector<Product> shoppingCart)
-{
-	double total = 0;
-	for (int i = 0; i < shoppingCart.size(); i++)
-	{
-		total += shoppingCart[i].price;
-	}
-	return total;
-}
-
-bool determineZero(int val)
-{
-	if (val == 0)
-	{
-		return true;
-	}
-	else
-	{
-		return false;
-	}
-}
-
-void listShoppingCart(vector<Product> shoppingCart)
-{
-	int coffeeCount = 0;
-	int sandwichCount = 0;
-	int teaCount = 0;
-	int burgerCount = 0;
-	cout << "Your shopping cart: " << endl;
-	for (int i = 0; i < shoppingCart.size(); i++)
-	{
-		if (shoppingCart[i].daName == Coffee)
-		{
-			coffeeCount++;
-		}
-		else if (shoppingCart[i].daName == Tea)
-		{
-			teaCount++;
-		}
-		else if (shoppingCart[i].daName == Sandwich)
-		{
-			sandwichCount++;
-		}
-		else
-		{
-			burgerCount++;
-		}
-	}
-	if (!determineZero(burgerCount))
-	{
-		cout << "Burger(s) " << burgerCount << endl;
-	}
-	if (!determineZero(sandwichCount))
-	{
-		cout << "Sandwich(es) " << sandwichCount << endl;
-	}
-	if (!determineZero(teaCount))
-	{
-		cout << "Tea(s) " << teaCount << endl;
-	}
-	if (!determineZero(coffeeCount))
-	{
-		cout << "Coffee(s) " << coffeeCount << endl;
-	}
 }
 
 
@@ -246,7 +157,7 @@ int main()
 	products.push_back(exBurger);
 	products.push_back(exSandwich);
 
-	vector<Product> shoppingCart = vector<Product>();
+	ShoppingCart * Cart = new ShoppingCart();
 
 	string input = " ";
 	string cont = " ";
@@ -259,14 +170,14 @@ int main()
 		cin >> num;
 		for (int i = 0; i < num; i++)
 		{
-			shoppingCart.push_back(addToCart(input, products));
+			Cart->AddtoCart(input);
 		}
 		cout << "Would you like to continue shopping? (y/n)" << endl;;
 		cin >> cont;
 	}
 	vector<Currency *> *Change = new vector<Currency *>;
-	listShoppingCart(shoppingCart);
-	total = AddTotal(shoppingCart);
+	Cart->ListShoppingCart();
+	total = Cart->AddTotal();
 	cout << "Your total is $" << total << endl;
 	cout << "How would you like to pay? (Enter 1, 5, 10, or 20)" << endl;
 
